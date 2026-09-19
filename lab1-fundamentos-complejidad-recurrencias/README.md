@@ -100,3 +100,28 @@ Es decir, si el algortimo es eficiente en el peor caso, entonces también está 
 
 ##### Cota: Línea a Línea - Insertion Sort
 ![Cota: Línea a Línea - Insertion Sort](imagenes/parte4_cota_insertion_sort.png)
+#
+#### 4.2 - Validación experimental
+##### Gráfica Comparativa de Tiempo de Ejecución
+![Tiempo de Ejecución: Insertion Sort vs Merge Sort](graficas/parte4_tiempo.png)
+
+##### Análisis de resultados y conclusiones
+A partir de la gráfica obtenida, Merge Sort es el algoritmo recomendado e ideal para ser implementado en la plataforma Tamiza
+
+Insertion Sort muestra una parábola que se acelera rápidamente a medida que aumenta el tamaño de la entrada. Para muestras pequeñas, el tiempo de procesamiento es casi imperceptible, pero al llegar a 6.400 registros el tiempo crece demasiado. 
+
+Proyectar esta curva hacia la carga real de 1.200.000 registros confirma que el sistema desbordaría de forma crítica la ventana operacional de 4 horas (2:00am a 6:00am).
+
+A diferencia, Merge Sort mantiene un perfil casi plano en la parte inferior de la gráfica, incluso para el tamaño máximo probado de 6.400, el algoritmo resuelve el ordenamiento en una fracción mínima de segundo, demostrando escalabilidad para procesar grandes volúmenes de datos.
+
+Los resultados obtenidos en la gráfica coinciden con las complejidades asintóticas calculadas teóricamente:
+
+* Merge Sort ($\Theta(n \log n)$):
+
+    Permite reducir drásticamente el número de comparaciones e intercambios requeridos para ordenar la lista respecto a un bucle anidado.
+* Insertion Sort ($\Theta(n^2)$):
+
+    La presencia de ciclos anidados (while dentro del ciclo for) hace que la cantidad de operaciones crezca de forma cuadrática en el caso promedio (Escenario A).
+
+En la gráfica se observa que para cantidades muy pequeñas de datos la diferencia de tiempo entre ambos algoritmos es casi imperceptible.  Pero, a partir de 400, el costo algorítmico $\Theta(n \log n)$ muestra ventaja.
+#
