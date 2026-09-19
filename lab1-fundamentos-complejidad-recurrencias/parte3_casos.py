@@ -65,7 +65,7 @@ def generar_graficas(tamanos: list[int], resultados: dict[str, dict[str, list[fl
     plt.ylabel("Número de Comparaciones")
     plt.grid(True)
     plt.legend()
-    plt.savefig("../../graficas/parte3_comparaciones.png")
+    plt.savefig("graficas/parte3_comparaciones.png")
     plt.close()
 
 
@@ -78,7 +78,7 @@ def generar_graficas(tamanos: list[int], resultados: dict[str, dict[str, list[fl
     plt.ylabel("Tiempo de Ejecución (segundos)")
     plt.grid(True)
     plt.legend()
-    plt.savefig("../../graficas/parte3_tiempo.png")
+    plt.savefig("graficas/parte3_tiempo.png")
     plt.close()
 
     print("\nExperimento completado con éxito. Gráficas guardadas en 'graficas/'.")
