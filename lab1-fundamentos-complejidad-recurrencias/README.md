@@ -2,6 +2,38 @@
 #### Estudiante: Carla Juliana Giraldo Camacho
 ---
 ### Instrucciones para reproducir el experimento:
+Para ejecutar los experimentos y regenerar las tablas y gráficas del informe, siga estos pasos desde la terminal de comandos:
+
+#### 1. Clonar el repositorio y ubicar la carpeta del proyecto
+```bash
+cd lab1-fundamentos-complejidad-recurrencias
+```
+#### 2. Activar el entorno virtual de Python
+Asegúrese de activar el entorno virtual donde se encuentran instaladas las dependencias del proyecto correspondientes al _requirements.txt_ (como matplotlib 3.11.1):
+
+- Windows
+```bash
+venv\Scripts\activate
+```
+
+- MacOS/Linux
+```bash
+source venv/bin/activate
+```
+
+#### 3. Ejecución de los scripts por partes
+ - Parte 3 — Experimento con Insertion Sort (Escenarios A, B y C)
+
+    Ejecuta el algoritmo de inserción sobre los tres escenarios de datos y genera las gráficas de comparaciones y tiempo
+    ```bash
+    python parte3_casos.py
+    ```
+ - Parte 4 — Validación Experimental (Insertion Sort vs. Merge Sort)
+
+    Ejecuta la comparación entre ambos algoritmos sobre el escenario aleatorio y genera la gráfica de comparación de tiempos
+    ```bash
+    python parte4_complejidad.py
+    ```
 ---
 ### Parte 1
 #### La Secretaría está por firmar la compra de un servidor del doble de velocidad para que el proceso de Tamiza quepa en la ventana de cuatro horas. 
