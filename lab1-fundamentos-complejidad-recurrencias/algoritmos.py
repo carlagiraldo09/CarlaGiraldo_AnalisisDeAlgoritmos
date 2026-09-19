@@ -29,11 +29,3 @@ def insertion_sort(datos: list[int]) -> tuple[list[int], int]:
  
         arreglo[j + 1] = clave
     return arreglo, comparaciones
-
-if __name__ == "__main__":
-    ##Prueba del algoritmo con datos de ejemplo
-    datos = [5, 2, 9, 1, 5, 6]
-    ordenado, comparaciones = insertion_sort(datos)
-    print("Lista original:", datos)
-    print("Lista ordenada:", ordenado)
-    print("Comparaciones realizadas:", comparaciones)
