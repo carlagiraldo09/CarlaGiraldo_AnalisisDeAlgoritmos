@@ -92,3 +92,11 @@ Es decir, si el algortimo es eficiente en el peor caso, entonces también está 
    Se evidencia un comportamiento cuadrático con aproximadamente la mitad de comparaciones e intercambios respecto al Peor Caso.
    
    Coincide con la predicción al no existir una ordenación previa de los datos, la probabilidad de que un elemento se inserte en cualquier posición es constante, requiriendo recorrer en promedio la mitad del listado en cada paso.
+
+### Parte 4
+#### 4.1 - Cálculo teórico
+##### Árbol de recursión - Merge Sort
+![Árbol de recursión - Merge Sort](imagenes/parte4_arbol_de_recursion.png)
+
+##### Cota: Línea a Línea - Insertion Sort
+![Cota: Línea a Línea - Insertion Sort](imagenes/parte4_cota_insertion_sort.png)
