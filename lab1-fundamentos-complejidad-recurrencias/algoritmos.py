@@ -21,7 +21,7 @@ def insertion_sort(datos: list[int]) -> tuple[list[int], int]:
  
         while j >= 0:
             comparaciones += 1
-            if arreglo[j] > clave:
+            if clave > arreglo[j]:
                 arreglo[j + 1] = arreglo[j]
                 j -= 1
             else:
