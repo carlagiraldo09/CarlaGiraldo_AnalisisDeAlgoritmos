@@ -48,3 +48,41 @@ def ejecutar_experimento() -> None:
 
     generar_graficas(tamanos, resultados)
 
+def generar_graficas(tamanos: list[int], resultados: dict[str, dict[str, list[float]]]) -> None:
+    """Genera y guarda las gráficas de Comparaciones vs Tamaño de Entrada y Tiempo vs Tamaño de Entrada.
+    
+    Args:
+        tamanos: Lista de tamaños de entrada.
+        resultados: Diccionario con los resultados del experimento.
+    """
+
+    plt.figure()
+    for escenario, metricas in resultados.items():
+        plt.plot(tamanos, metricas["comparaciones"], label=escenario)
+    
+    plt.title("Parte 3 — Comparaciones vs. Tamaño de Entrada (Insertion Sort)")
+    plt.xlabel("Tamaño de entrada (n)")
+    plt.ylabel("Número de Comparaciones")
+    plt.grid(True)
+    plt.legend()
+    plt.savefig("../../graficas/parte3_comparaciones.png")
+    plt.close()
+
+
+    plt.figure()
+    for escenario, metricas in resultados.items():
+        plt.plot(tamanos, metricas["tiempos"], label=escenario)
+    
+    plt.title("Parte 3 — Tiempo de Ejecución vs. Tamaño de Entrada (Insertion Sort)")
+    plt.xlabel("Tamaño de entrada (n)")
+    plt.ylabel("Tiempo de Ejecución (segundos)")
+    plt.grid(True)
+    plt.legend()
+    plt.savefig("../../graficas/parte3_tiempo.png")
+    plt.close()
+
+    print("\nExperimento completado con éxito. Gráficas guardadas en 'graficas/'.")
+
+
+if __name__ == "__main__":
+    ejecutar_experimento()
