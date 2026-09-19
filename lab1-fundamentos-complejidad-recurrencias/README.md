@@ -67,6 +67,16 @@ Las consecuencias las asume el paciente, su familia, y el sistema de salud públ
 Si el algoritmo falla en la ordenación, no solo incumple en el tiempo, sino que en la equidad del programa. Un ordenamiento incorrecto perjudica el principio médico de atender primero a quien tiene mayor probabilidad de complicarse. Por esto el equipo técnico tiene la obligación ética de garantizar que el código se ejecute dentro de las 4 horas, y a su vez de verificar que la lógica de ordenamiento respete la prioridad del índice de riesgo.
 
 ----
+### Enlaces directos a código
+[Código de los algoritmos de ordenamiento](algoritmos.py)
+
+[Código de los generadores de lotes para los experimentos](datos.py)
+
+[Código del experimento de la Parte3](parte3_casos.py)
+
+[Código del experimento de la Parte4](parte4_complejidad.py)
+
+----
 ### Parte 3
 #### 3.1 - Peor caso, mejor caso y caso promedio
 1. Peor caso:
@@ -100,6 +110,7 @@ Es decir, si el algortimo es eficiente en el peor caso, entonces también está 
 | C - Orden inverso | Peor caso | La lista está ordenada al contrario de lo requerido por el centro de contacto (inversa)
 #
 #### 3.2 — Demostración Experimental de Casos en Insertion Sort
+[Código del experimento de la Parte3](parte3_casos.py)
 
 #### Gráficas de Desempeño
 | Comparaciones vs. Tamaño (n) | Tiempo de Ejecución vs. Tamaño (n) |
@@ -134,6 +145,7 @@ Es decir, si el algortimo es eficiente en el peor caso, entonces también está 
 ![Cota: Línea a Línea - Insertion Sort](imagenes/parte4_cota_insertion_sort.png)
 #
 #### 4.2 - Validación experimental
+[Código del experimento de la Parte4](parte4_complejidad.py)
 ##### Gráfica Comparativa de Tiempo de Ejecución
 ![Tiempo de Ejecución: Insertion Sort vs Merge Sort](graficas/parte4_tiempo.png)
 
