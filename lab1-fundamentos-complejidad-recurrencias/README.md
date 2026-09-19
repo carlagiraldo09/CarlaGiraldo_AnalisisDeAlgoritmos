@@ -125,3 +125,13 @@ Los resultados obtenidos en la gráfica coinciden con las complejidades asintót
 
 En la gráfica se observa que para cantidades muy pequeñas de datos la diferencia de tiempo entre ambos algoritmos es casi imperceptible.  Pero, a partir de 400, el costo algorítmico $\Theta(n \log n)$ muestra ventaja.
 #
+#### 4.3 - Concepto Técnico a la Secretaría de Salud
+Sobre el funcionamiento del sistema Tamiza y responder a la propuesta de comprar un nuevo servidor, y entendiendo que el equipo no quiere complicarse manteniendo tres códigos diferentes según cómo lleguen los datos, nuestra recomendación clara y directa es reemplazar el algoritmo actual (Insertion Sort) por Merge Sort. El algoritmo actual solo funciona rápido cuando los datos ya vienen casi ordenados; si por algún cambio en el flujo los datos llegan desordenados o al revés, el sistema se vuelve extremadamente lento. En cambio, Merge Sort  sin importar cómo lleguen los datos garantiza que el proceso siempre sea rápido y confiable.
+
+Para que tengan una dimensión del problema con datos reales, hicimos una proyección basada en pruebas de laboratorio. (Estos números son una estimación matemática calculada a partir de nuestras mediciones y no una prueba directa sobre el total de pacientes). 
+
+En nuestras pruebas con una muestra de 6.400 registros, el algoritmo actual tardó 0,74 segundos, mientras que Merge Sort tardó solo 0,01 segundos. Cuando escalamos estos datos a la cantidad real de 1.200.000 pacientes, la forma en que trabaja el algoritmo actual hace que el tiempo se multiplique por más de 35.000, lo que significa que tardaría unas 7 horas, superando por mucho el límite de 4 horas que se plantea. Con Merge Sort, ese mismo trabajo tomaría una estimación de apenas 3,06 segundos.
+
+Por esta razón, les aconsejamos no comprar el servidor del doble de velocidad. Duplicar la potencia del procesador solo reduciría el tiempo del algoritmo actual de 7 a 3.5 horas en un día normal. Aunque parezca que esto resuelve el problema, si un día los datos llegan en orden inverso, el sistema se volvería a demorar más de 6 horas, incluso con el servidor nuevo. Comprar un servidor más potente es una solución temporal que no arregla la falla de raíz.
+
+Por último, queremos darles tranquilidad sobre el uso de memoria RAM de Merge Sort. Aunque este algoritmo necesita un poco de memoria extra para hacer las mezclas de datos, procesar los 1.200.000 registros solo consumirá una cantidad minúscula que cualquier servidor actual soporta sin problemas. Además, Merge Sort respeta el orden de llegada de los pacientes que tengan el mismo nivel de riesgo, asegurando un trato justo para todos.
