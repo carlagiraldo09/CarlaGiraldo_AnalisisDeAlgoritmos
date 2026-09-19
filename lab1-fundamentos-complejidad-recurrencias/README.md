@@ -148,10 +148,10 @@ A diferencia, Merge Sort mantiene un perfil casi plano en la parte inferior de l
 
 Los resultados obtenidos en la gráfica coinciden con las complejidades asintóticas calculadas teóricamente:
 
-* Merge Sort ($\Theta(n \log n)$):
+* Merge Sort $\Theta(n \log n)$:
 
     Permite reducir drásticamente el número de comparaciones e intercambios requeridos para ordenar la lista respecto a un bucle anidado.
-* Insertion Sort ($\Theta(n^2)$):
+* Insertion Sort $\Theta(n^2)$:
 
     La presencia de ciclos anidados (while dentro del ciclo for) hace que la cantidad de operaciones crezca de forma cuadrática en el caso promedio (Escenario A).
 
