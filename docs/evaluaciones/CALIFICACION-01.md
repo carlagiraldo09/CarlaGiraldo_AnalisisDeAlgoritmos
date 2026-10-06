@@ -46,7 +46,7 @@
 - Los generadores no producen índices distintos: usan números al azar que se repiten (en un lote de 1000 solo hay unos 640 valores distintos).
 - `generar_inverso` cambió la firma pedida (agregó el parámetro `semilla`).
 - Los generadores usan `sorted()`. Está justificado en un comentario porque no es el algoritmo evaluado, pero conviene evitarlo.
-- Hay muchas faltas de estilo PEP 8: líneas con espacios sobrantes, falta de dos líneas en blanco entre funciones, líneas largas y archivos sin salto de línea final.
+- Hay muchas faltas de estilo PEP 8: falta de dos líneas en blanco entre funciones y líneas largas.
 
 ## 4. Calidad del análisis de las gráficas (17 / 20)
 **Lo que hizo bien:**
@@ -73,7 +73,7 @@ Sí. Los dos scripts corren sin errores y generan las gráficas. Ambos algoritmo
 
 ## Para el próximo laboratorio
 - Genere datos con valores distintos (por ejemplo, con `random.sample`) y respete las firmas pedidas.
-- Corra una revisión de estilo PEP 8 antes de entregar y limpie espacios y líneas en blanco.
+- Corra una revisión de estilo PEP 8 antes de entregar y corrija las líneas en blanco entre funciones y las líneas largas.
 - Incluya siempre la tabla de mejor, peor y caso promedio, y desarrolle también el mejor caso del cálculo línea a línea.
 - Cite la gráfica y el tamaño exacto de donde saca cada dato en sus recomendaciones.
 - Revise que las instrucciones de reproducción funcionen desde la carpeta indicada.
