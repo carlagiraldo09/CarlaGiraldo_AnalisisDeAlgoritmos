@@ -4,21 +4,28 @@
 ### Instrucciones para reproducir el experimento:
 Para ejecutar los experimentos y regenerar las tablas y gráficas del informe, siga estos pasos desde la terminal de comandos:
 
-#### 1. Clonar el repositorio y ubicar la carpeta del proyecto
+#### 1. Clonar el repositorio y ubicarse en su raíz
 ```bash
-cd lab1-fundamentos-complejidad-recurrencias
+git clone https://github.com/carlagiraldo09/CarlaGiraldo_AnalisisDeAlgoritmos.git
+cd CarlaGiraldo_AnalisisDeAlgoritmos
 ```
 #### 2. Activar el entorno virtual de Python
-Asegúrese de activar el entorno virtual donde se encuentran instaladas las dependencias del proyecto correspondientes al _requirements.txt_ (como matplotlib 3.11.1):
+El entorno virtual y `requirements.txt` están en la raíz del repositorio, no dentro de la carpeta del laboratorio. Instale las dependencias una vez y active el entorno desde esa raíz:
 
 - Windows
 ```bash
+py -m venv venv
 venv\Scripts\activate
+pip install -r requirements.txt
+cd lab1-fundamentos-complejidad-recurrencias
 ```
 
 - MacOS/Linux
 ```bash
+python3 -m venv venv
 source venv/bin/activate
+pip install -r requirements.txt
+cd lab1-fundamentos-complejidad-recurrencias
 ```
 
 #### 3. Ejecución de los scripts por partes
@@ -42,13 +49,13 @@ La Secretaría de Salud utilizando el software actual Tamiza, cumplen con la cor
 
 La restricción que se incumple es la latencia máxima de ejecución de cuatro horas que nos mencionan tiene el sistema para cumplir su tarea. Y el duplicar la velocidad del servidor no resuelve el problema de fondo debido a que el crecimiento del tiempo de ejecución según la cantidad de datos es cuadrático. Por lo que, a pesar de que sea posible que aliviane (así sea mínimo) el problema, no es una solución que se mantenga a largo plazo. 
 
-Para entenderlo mejor, si se duplica la velocidad es un factor de 2X, lo cual es un comportamiento lineal y es mucho menor al crecimiento cuadrático. 
+Para entenderlo mejor, si se duplica la velocidad se gana, como máximo, un factor 2 en el tiempo. Ese factor fijo es mucho menor que el crecimiento cuadrático del trabajo cuando aumenta la cantidad de registros.
 
 Por ejemplo, un banco que adquiere los clientes de su competencia por compra de la misma (Banco de Bogotá e Itaú). La cantidad de clientes aumenta debido a la migración en aproximadamente 267.000 usuarios, con un promedio de depósitos totales de COP$4,1 billones.
 
 Durante el cierre bancario nocturno, el sistema ejecuta un proceso para validar que no existan transacciones duplicadas o fraudulentas. Entonces, compara cada transacción contra el resto mediante un algoritmo de búsqueda y la restricción del sistema es una ventana de tiempo de 1:00am a 4:00am (3 horas) antes de reabrir las consultas.
 
-Aunque se cumpla la identificación de duplicados y fraudes, comparar un promedio de 1'335.000 de registros más que en el pasado resulta en un incumplimiento de la ventana de tiempo que anteriormente servía. Lo que podría dejar la aplicación del banco fuera de servicio por más horas.
+Aunque se cumpla la identificación de duplicados y fraudes, comparar un promedio de 1'335.000 de registros más que en el pasado resulta en un incumplimiento de la ventana de tiempo que anteriormente servía. Si el sistema conserva la comparación por pares (un algoritmo cuadrático), una ejecución estimada de seis horas excede las tres horas entre la 1:00 a. m. y las 4:00 a. m.; por tanto, el resultado correcto llega demasiado tarde y deja las consultas indisponibles.
 
 ---
 ### Parte 2
@@ -65,6 +72,8 @@ Si el proceso nocturno no concluye a las 6:00am y el centro de contacto recibe u
 Las consecuencias las asume el paciente, su familia, y el sistema de salud público. El paciente debido al riesgo de deterioro de su salud o muerte, y el sistema de salud costeando una atención a futuro mucho más compleja y costosa.
 
 Si el algoritmo falla en la ordenación, no solo incumple en el tiempo, sino que en la equidad del programa. Un ordenamiento incorrecto perjudica el principio médico de atender primero a quien tiene mayor probabilidad de complicarse. Por esto el equipo técnico tiene la obligación ética de garantizar que el código se ejecute dentro de las 4 horas, y a su vez de verificar que la lógica de ordenamiento respete la prioridad del índice de riesgo.
+
+Los costos no se distribuyen de manera abstracta. Primero, el paciente de alto riesgo que queda sin llamada o al final de la lista asume el costo más grave: demora en la valoración, ansiedad y posible deterioro clínico; su familia también carga con esa consecuencia. Segundo, el operador del centro de contacto asume el costo operativo de trabajar con una lista parcial: debe explicar retrasos, rehacer prioridades y recibe presión por una falla que no causó. La Secretaría asume costos institucionales y de atención tardía, y el equipo de desarrollo asume la responsabilidad profesional de corregir y vigilar el proceso. Identificar estos responsables obliga a no trasladar el riesgo de una mala decisión técnica a pacientes u operadores.
 
 ----
 ### Enlaces directos a código
@@ -96,6 +105,8 @@ Si el algoritmo falla en la ordenación, no solo incumple en el tiempo, sino que
     Es la situación en la que el algoritmo realiza una cantidad **promedio** de operaciones (comparaciones y desplazamientos) sobre el conjunto de datos con tamaño n. 
 
     Para Insertion Sort, es cuando el orden de la lista de entrada es completamente aleatorio.
+
+En las tres definiciones se mantiene fijo el tamaño `n` y se considera el conjunto de todas las listas posibles de `n` índices distintos. El peor caso es el máximo costo de insertion sort dentro de ese conjunto; el mejor caso es el mínimo; y el caso promedio es la media del costo al considerar todas esas permutaciones como igualmente probables. No son tres tamaños distintos: son tres formas de entrada para el mismo `n`.
 
 ##### ¿Cuál de los tres casos usaría para decidir si el algoritmo de Tamiza entra en producción, sabiendo que la ventana de cuatro horas es estricta, y por qué?
 Usaría el peor de los casos para realizar las pruebas y decidir si entra en producción, ya que el tiempo de ejecución en el peor caso siempre será el tope máximo que puede alcanzar. Teniendo en cuenta que contamos con una ventana de tiempo estricta para el ordenamiento.
@@ -143,6 +154,26 @@ Es decir, si el algortimo es eficiente en el peor caso, entonces también está 
 
 ##### Cota: Línea a Línea - Insertion Sort
 ![Cota: Línea a Línea - Insertion Sort](imagenes/parte4_cota_insertion_sort.png)
+
+La recurrencia de merge sort es `T(n) = 2T(n/2) + Θ(n)`. Los dos términos `T(n/2)` aparecen porque cada llamada divide el lote en dos mitades; `Θ(n)` es el recorrido necesario para mezclar las dos listas ya ordenadas. Con un árbol de recursión, cada nivel suma `Θ(n)`: en el nivel 0 hay una mezcla de `n`, en el nivel 1 hay dos de `n/2`, en el nivel 2 hay cuatro de `n/4`, y así sucesivamente. El árbol llega a hojas de tamaño 1 después de `log₂ n` divisiones.
+
+```text
+n                         costo Θ(n)
+├── n/2 + n/2             costo 2·Θ(n/2) = Θ(n)
+│   ├── n/4 ...           costo 4·Θ(n/4) = Θ(n)
+│   └── ...
+└── ...
+
+log₂ n niveles con costo Θ(n) + hojas Θ(n)
+T(n) = Θ(n)·log₂ n + Θ(n) = Θ(n log n)
+```
+
+En `insertion_sort`, la copia de la lista cuesta `Θ(n)`. El `for` se ejecuta `n - 1` veces. En la iteración `i`, `clave` y `posicion` se asignan una vez; el `while` hace una comparación entre elementos por cada posición que debe revisar. En el peor caso revisa `i` elementos y desplaza `i` posiciones; el total de comparaciones es `Σ(i=1..n-1) i = n(n-1)/2`, por lo que el costo es `Θ(n²)`. En el mejor caso, la primera comparación falla en cada iteración: hay `n - 1` comparaciones y costo `Θ(n)`. Con una permutación aleatoria, cada clave recorre en promedio cerca de la mitad de la sección ordenada; la suma es aproximadamente `n(n-1)/4`, así que el caso promedio también es `Θ(n²)`.
+
+| Algoritmo | Mejor caso | Caso promedio | Peor caso |
+|---|---:|---:|---:|
+| Insertion sort | Θ(n) | Θ(n²) | Θ(n²) |
+| Merge sort | Θ(n log n) | Θ(n log n) | Θ(n log n) |
 #
 #### 4.2 - Validación experimental
 [Código del experimento de la Parte4](parte4_complejidad.py)
@@ -150,7 +181,7 @@ Es decir, si el algortimo es eficiente en el peor caso, entonces también está 
 ![Tiempo de Ejecución: Insertion Sort vs Merge Sort](graficas/parte4_tiempo.png)
 
 ##### Análisis de resultados y conclusiones
-A partir de la gráfica obtenida, Merge Sort es el algoritmo recomendado e ideal para ser implementado en la plataforma Tamiza
+A partir de la gráfica `parte4_tiempo.png`, Merge Sort es el algoritmo recomendado para Tamiza. Las mediciones son el promedio de cinco ejecuciones por tamaño, para reducir el efecto de variaciones puntuales del equipo.
 
 Insertion Sort muestra una parábola que se acelera rápidamente a medida que aumenta el tamaño de la entrada. Para muestras pequeñas, el tiempo de procesamiento es casi imperceptible, pero al llegar a 6.400 registros el tiempo crece demasiado. 
 
@@ -167,15 +198,15 @@ Los resultados obtenidos en la gráfica coinciden con las complejidades asintót
 
     La presencia de ciclos anidados (while dentro del ciclo for) hace que la cantidad de operaciones crezca de forma cuadrática en el caso promedio (Escenario A).
 
-En la gráfica se observa que para cantidades muy pequeñas de datos la diferencia de tiempo entre ambos algoritmos es casi imperceptible.  Pero, a partir de 400, el costo algorítmico $\Theta(n \log n)$ muestra ventaja.
+En la gráfica se observa que para cantidades muy pequeñas de datos la diferencia de tiempo entre ambos algoritmos es casi imperceptible. Pero, a partir de 400, el costo algorítmico $\Theta(n \log n)$ muestra ventaja.
 #
 #### 4.3 - Concepto Técnico a la Secretaría de Salud
 Sobre el funcionamiento del sistema Tamiza y responder a la propuesta de comprar un nuevo servidor, y entendiendo que el equipo no quiere complicarse manteniendo tres códigos diferentes según cómo lleguen los datos, nuestra recomendación clara y directa es reemplazar el algoritmo actual (Insertion Sort) por Merge Sort. El algoritmo actual solo funciona rápido cuando los datos ya vienen casi ordenados; si por algún cambio en el flujo los datos llegan desordenados o al revés, el sistema se vuelve extremadamente lento. En cambio, Merge Sort  sin importar cómo lleguen los datos garantiza que el proceso siempre sea rápido y confiable.
 
 Para que tengan una dimensión del problema con datos reales, hicimos una proyección basada en pruebas de laboratorio. (Estos números son una estimación matemática calculada a partir de nuestras mediciones y no una prueba directa sobre el total de pacientes). 
 
-En nuestras pruebas con una muestra de 6.400 registros, el algoritmo actual tardó 0,74 segundos, mientras que Merge Sort tardó solo 0,01 segundos. Cuando escalamos estos datos a la cantidad real de 1.200.000 pacientes, la forma en que trabaja el algoritmo actual hace que el tiempo se multiplique por más de 35.000, lo que significa que tardaría unas 7 horas, superando por mucho el límite de 4 horas que se plantea. Con Merge Sort, ese mismo trabajo tomaría una estimación de apenas 3,06 segundos.
+En la gráfica `graficas/parte4_tiempo.png`, el punto de 6.400 registros muestra un promedio de 1,008 segundos para insertion sort y 0,015 segundos para merge sort. Extrapolar el promedio aleatorio de insertion sort con el factor cuadrático `(1.200.000 / 6.400)²` da aproximadamente 9,8 horas. Para merge sort, al escalar por `n log₂ n`, la estimación es aproximadamente 4,5 segundos. Estas cifras son estimaciones basadas en las mediciones, no una medición directa de 1.200.000 pacientes.
 
-Por esta razón, les aconsejamos no comprar el servidor del doble de velocidad. Duplicar la potencia del procesador solo reduciría el tiempo del algoritmo actual de 7 a 3.5 horas en un día normal. Aunque parezca que esto resuelve el problema, si un día los datos llegan en orden inverso, el sistema se volvería a demorar más de 6 horas, incluso con el servidor nuevo. Comprar un servidor más potente es una solución temporal que no arregla la falla de raíz.
+Por esta razón, no recomendamos comprar el servidor del doble de velocidad como sustituto del cambio de algoritmo. Tomando el dato medido de 1,008 segundos en `parte4_tiempo.png` para `n = 6.400`, duplicar la velocidad solo reduce la estimación aleatoria de 9,8 a cerca de 4,9 horas: aún incumple la ventana de cuatro horas. Además, en `parte3_tiempo.png` el escenario inverso tardó 1,998 segundos para ese mismo tamaño, casi el doble del aleatorio; por tanto, el servidor nuevo seguiría expuesto al canal de entrada más adverso. El hardware puede acompañar la mejora, pero no corrige la causa cuadrática.
 
 Por último, queremos darles tranquilidad sobre el uso de memoria RAM de Merge Sort. Aunque este algoritmo necesita un poco de memoria extra para hacer las mezclas de datos, procesar los 1.200.000 registros solo consumirá una cantidad minúscula que cualquier servidor actual soporta sin problemas. Además, Merge Sort respeta el orden de llegada de los pacientes que tengan el mismo nivel de riesgo, asegurando un trato justo para todos.
