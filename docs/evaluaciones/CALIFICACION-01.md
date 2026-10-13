@@ -1,79 +1,76 @@
 # Retroalimentación — Laboratorio 01: Fundamentos, complejidad y recurrencias
 
 **Estudiante:** Carla Giraldo Camacho · **Laboratorio:** Laboratorio evaluativo 01 — Fundamentos, complejidad y recurrencias
-**Fecha límite:** 2026-10-06 23:59 · **Versión revisada:** commit `7d295ef`
+**Fecha límite:** 2026-10-13 23:59 · **Versión revisada:** commit `7bfe8e4`
+
+Muy buen trabajo: su informe está completo y apoyado en sus propias mediciones.
 
 ## Nota
 
 | Criterio | Puntos |
 |---|---|
-| Corrección conceptual | 21 / 25 |
-| Calidad de la explicación teórica | 19 / 25 |
-| Corrección de la implementación | 14 / 20 |
+| Corrección conceptual | 22 / 25 |
+| Calidad de la explicación teórica | 22 / 25 |
+| Corrección de la implementación | 18 / 20 |
 | Calidad del análisis de las gráficas | 17 / 20 |
-| Documentación y organización del informe | 8 / 10 |
-| **Total** | **79 / 100** |
-| **Nota (0–5)** | **3.95** |
+| Documentación y organización del informe | 10 / 10 |
+| **Total** | **89 / 100** |
+| **Nota (0–5)** | **4.45** |
 
-## 1. Corrección conceptual (21 / 25)
+## 1. Corrección conceptual (22 / 25)
 **Lo que hizo bien:**
-- Distingue entre que el resultado sea correcto y que llegue a tiempo, y nombra la restricción que se incumple: la ventana de cuatro horas.
-- Explica que duplicar la velocidad del servidor no arregla el problema, porque el tiempo crece al cuadrado con los datos.
-- Da un segundo ejemplo propio (cierre nocturno de un banco) con cantidad de datos y ventana de tiempo.
-- En la Parte 2 relaciona el tiempo de ejecución con el gasto de energía todas las madrugadas, nombra quién asume el costo del error y trata la obligación de que el orden de la lista sea correcto.
+- Distingue bien entre que el resultado sea correcto y que llegue a tiempo, y nombra la restricción incumplida: la ventana de cuatro horas.
+- Explica por qué un servidor el doble de rápido solo gana un factor fijo de 2 frente a un crecimiento cuadrático.
+- Su segundo ejemplo (la fusión de dos bancos) trae datos y una ventana de tiempo concretos.
+- En la parte ética identifica al paciente y al operador del centro de contacto, y dice quién asume cada costo.
 
 **Lo que puede mejorar:**
-- En el ejemplo del banco no queda claro qué algoritmo se usa ni cuánto tarda; dé una cifra aproximada de la ventana frente al tiempo real.
-- En la parte ética, separe más los perjuicios concretos (por ejemplo, el paciente que no es llamado y el operador del centro de contacto) y diga quién asume el costo de cada uno.
+- En la parte ambiental falta convertir las horas de ejecución en una cifra aproximada de energía (por ejemplo, potencia del servidor por horas por días del año).
+- La obligación que impone que el orden de la lista decida a quién se llama primero queda apenas esbozada; desarróllela más.
 
-## 2. Calidad de la explicación teórica (19 / 25)
+## 2. Calidad de la explicación teórica (22 / 25)
 **Lo que hizo bien:**
-- Define los tres casos, justifica usar el peor caso para decidir si entra en producción y deja escrita la predicción antes del experimento.
-- Plantea la recurrencia de merge sort con el árbol de recursión, con el costo por nivel, el número de niveles y la cota final O(n log n).
-- Calcula insertion sort línea a línea y llega a la forma cuadrática.
+- Define peor caso, mejor caso y caso promedio, fija el tamaño `n` y justifica que usaría el peor caso por la ventana estricta.
+- La predicción por escenario quedó escrita antes del experimento.
+- Plantea la recurrencia de merge sort, explica cada término y la resuelve con el árbol de recursión hasta `Θ(n log n)`.
+- Presenta la tabla de complejidades por caso.
 
 **Lo que puede mejorar:**
-- Falta la tabla con la complejidad de cada algoritmo en el mejor caso, el peor y el promedio.
-- Al definir los casos, diga con más precisión sobre qué conjunto de entradas se toma el máximo, el mínimo y el promedio.
-- El cálculo línea a línea de insertion sort solo desarrolla el peor caso, y su código de apoyo no coincide del todo con el que usted entregó.
+- El cálculo línea a línea de insertion sort en su imagen corresponde a otra versión del código (con la condición dentro del `while`), no a la que entregó, y solo desarrolla el peor caso. Hágalo sobre el código final y muestre también el mejor caso.
+- En el árbol de recursión falta mostrar el número de niveles y el costo total con la misma claridad que el resto del desarrollo.
 
-## 3. Corrección de la implementación (14 / 20)
+## 3. Corrección de la implementación (18 / 20)
 **Lo que hizo bien:**
-- `insertion_sort` y `merge_sort` ordenan bien (de mayor a menor), no cambian la lista recibida y cuentan las comparaciones entre elementos. `merge_sort` tiene su propia mezcla recursiva.
-- Los generadores usan semilla y las funciones tienen *type hints* y *docstrings*.
+- `insertion_sort` y `merge_sort` ordenan bien los tres escenarios, no cambian la lista original y cuentan comparaciones entre elementos (9 en el mejor caso con 10 datos, como debe ser).
+- No usa `sorted()` ni `list.sort()`; la mezcla de merge sort es propia.
+- Los generadores producen listas del tamaño pedido, sin repetidos y con semilla reproducible.
 
 **Lo que puede mejorar:**
-- Los generadores no producen índices distintos: usan números al azar que se repiten (en un lote de 1000 solo hay unos 640 valores distintos).
-- `generar_inverso` cambió la firma pedida (agregó el parámetro `semilla`).
-- Los generadores usan `sorted()`. Está justificado en un comentario porque no es el algoritmo evaluado, pero conviene evitarlo.
-- Hay muchas faltas de estilo PEP 8: falta de dos líneas en blanco entre funciones y líneas largas.
+- En `parte4_complejidad.py` el parámetro `algoritmo` no tiene *type hint*.
+- En `generar_inverso` falta la línea en blanco antes de `Returns:` en el *docstring*.
+- Hay una línea de más de 100 caracteres en `parte3_casos.py`.
 
 ## 4. Calidad del análisis de las gráficas (17 / 20)
 **Lo que hizo bien:**
-- Las tres gráficas existen y tienen título, ejes rotulados, leyenda y los escenarios en los mismos ejes.
-- Identifica con evidencia el peor caso (inverso), el mejor (casi ordenado) y el promedio (aleatorio), y lo contrasta con su predicción.
-- Concluye que merge sort conviene a partir de la gráfica y de sus mediciones, y lo relaciona con las complejidades.
-- El concepto técnico recomienda un algoritmo, hace la extrapolación a 1.200.000 registros declarada como estimación y habla de memoria y estabilidad.
+- Las tres gráficas tienen título, ejes rotulados y leyenda. Las cifras del informe coinciden con ellas: en `parte4_tiempo.png` insertion sort llega a cerca de 1 segundo en n = 6400, y en `parte3_tiempo.png` el escenario inverso llega a cerca de 2 segundos.
+- Identifica correctamente el peor caso (C), el mejor (B) y el más cercano al promedio (A), y lo contrasta con su predicción.
+- El concepto técnico recomienda merge sort, responde a la propuesta del servidor con un dato medido, extrapola a 1.200.000 registros (unas 9,8 horas contra unos 4,5 segundos) y lo declara como estimación.
 
 **Lo que puede mejorar:**
-- Al responder sobre el servidor, cite explícitamente la gráfica de la que tomó el dato.
-- Las curvas de tiempo salen de una sola medición; repetirla y promediar daría curvas más limpias.
+- Sobre los tamaños pequeños, diga con más claridad por qué las dos curvas casi no se distinguen y cuándo empieza a notarse la diferencia.
+- La afirmación de que la memoria extra de merge sort es "minúscula" no está respaldada por ninguna medición ni cálculo; estime cuánta memoria usaría.
 
-## 5. Documentación y organización del informe (8 / 10)
+## 5. Documentación y organización del informe (10 / 10)
 **Lo que hizo bien:**
-- Carpeta y archivos con los nombres pedidos, partes en orden, gráficas incrustadas que sí se ven y enlaces a cada código.
-- Historial con muchos commits descriptivos.
-
-**Lo que puede mejorar:**
-- Las instrucciones activan el entorno virtual desde la carpeta del laboratorio, pero el entorno está en la raíz del repositorio; indique la ruta correcta.
-- Los desarrollos de la Parte 4.1 están solo como fotos; funcionan, pero conviene acompañarlos de la tabla de complejidades en el informe.
+- Siguió la estructura de carpetas acordada y los archivos pedidos.
+- El informe está ordenado por partes, las gráficas se ven y cada parte enlaza su código.
+- Incluye instrucciones de reproducción y tiene muchos commits con mensajes descriptivos.
 
 ## ¿El código funciona?
-Sí. Los dos scripts corren sin errores y generan las gráficas. Ambos algoritmos ordenan bien en mis pruebas con listas aleatorias, y el conteo de comparaciones es coherente.
+Sí. Los algoritmos ordenan correctamente, el experimento de la Parte 4 corre sin errores y genera la gráfica.
 
 ## Para el próximo laboratorio
-- Genere datos con valores distintos (por ejemplo, con `random.sample`) y respete las firmas pedidas.
-- Corra una revisión de estilo PEP 8 antes de entregar y corrija las líneas en blanco entre funciones y las líneas largas.
-- Incluya siempre la tabla de mejor, peor y caso promedio, y desarrolle también el mejor caso del cálculo línea a línea.
-- Cite la gráfica y el tamaño exacto de donde saca cada dato en sus recomendaciones.
-- Revise que las instrucciones de reproducción funcionen desde la carpeta indicada.
+- Convierta siempre el tiempo medido en una cifra concreta (energía, costo o memoria) cuando el informe lo pida.
+- Haga el análisis línea a línea sobre el código exacto que entrega, cubriendo mejor, peor y promedio.
+- Revise *type hints*, *docstrings* y longitud de líneas antes de publicar.
+- Apoye cada afirmación sobre recursos, como la memoria, en un cálculo o una medición.
