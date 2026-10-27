@@ -41,7 +41,18 @@ Las pruebas cubren la serie propuesta de ocho días, una lista de un elemento, l
 
 [Ver `medicion.py`](medicion.py)
 
-La gráfica se obtuvo con listas reproducibles de enteros entre -100 y 100, usando la semilla fija `20261003`. Para cada tamaño usé exactamente la misma lista en ambas funciones, comprobé que devolvieran la misma suma y promedié cinco ejecuciones. El cronómetro rodea únicamente la llamada del algoritmo; la generación de datos queda fuera de la medición.
+La gráfica se obtuvo con listas reproducibles de enteros entre -100 y 100, usando la semilla fija `20261003`. Para cada tamaño usé exactamente la misma lista en ambas funciones, comprobé que devolvieran la misma suma y promedié 30 ejecuciones. El cronómetro rodea únicamente la llamada del algoritmo; la generación de datos queda fuera de la medición.
+
+| n | Fuerza bruta (s) | Divide y vencerás (s) |
+|---:|---:|---:|
+| 10 | 0,0000040 | 0,0000099 |
+| 50 | 0,0000575 | 0,0000514 |
+| 100 | 0,0002178 | 0,0001086 |
+| 250 | 0,0012944 | 0,0002819 |
+| 500 | 0,0056941 | 0,0006293 |
+| 1000 | 0,0229326 | 0,0013290 |
+| 2000 | 0,0909643 | 0,0027162 |
+| 4000 | 0,3653715 | 0,0057797 |
 
 ![Tiempo de ejecución frente al tamaño de entrada](graficas/tiempo_vs_n.png)
 
@@ -51,24 +62,25 @@ La gráfica se obtuvo con listas reproducibles de enteros entre -100 y 100, usan
 
 Para `subarreglo_maximo`, una llamada de tamaño `n` crea dos subproblemas de aproximadamente `n/2`: uno para la mitad izquierda y otro para la derecha. Además, calcula el caso que atraviesa el punto medio. Ese cálculo recorre una vez la mitad izquierda hacia atrás y una vez la derecha hacia adelante; entre los dos recorridos cuesta Θ(n). Por tanto, la recurrencia es `T(n) = 2T(n/2) + Θ(n)`, con caso base de un elemento.
 
-En el método maestro, `a = 2` y `b = 2`, así que `n^(log_b a) = n^(log_2 2) = n`. Como el término de combinación también es Θ(n), tiene el mismo orden que ese valor. Corresponde al caso 2 y el resultado es Θ(n log n).
+En el método maestro, `a = 2`, `b = 2` y `f(n) = Θ(n)`. Entonces `n^(log_b a) = n^(log₂ 2) = n`, por lo que la comparación completa es `f(n) = Θ(n) = Θ(n^(log_b a))`. Corresponde al caso 2 y el resultado es Θ(n log n).
 
 La fuerza bruta acumulada no vuelve a sumar desde cero cada tramo. Para cada índice inicial recorre los finales posibles y actualiza una suma, lo que forma aproximadamente `n(n + 1) / 2` iteraciones. Esa cantidad es Θ(n²).
 
 ### 2. Lo medido frente a lo esperado
 
-Los datos de esta ejecución se muestran en la tabla siguiente. Los factores se calculan al pasar de `n = 2000` a `n = 4000`. La curva de fuerza bruta se vuelve mucho más inclinada porque al duplicar `n` se revisan cerca de cuatro veces más pares. La de divide y vencerás también crece, pero con una pendiente menor: duplicar `n` duplica el trabajo principal y añade solo un nivel logarítmico.
+Para evitar apoyar la conclusión en un solo par, comparé los tres últimos intervalos en los que `n` se duplica:
 
-| Algoritmo | Tiempo en 2000 | Tiempo en 4000 | Factor al duplicar |
+| Cambio de n | Factor fuerza bruta | Factor divide y vencerás | Factor teórico n log₂ n |
 |---|---:|---:|---:|
-| Fuerza bruta | 0,0927257 s | 0,3655947 s | 3,94 |
-| Divide y vencerás | 0,0027799 s | 0,0057898 s | 2,08 |
+| 500 → 1000 | 4,03 | 2,11 | 2,22 |
+| 1000 → 2000 | 3,97 | 2,04 | 2,20 |
+| 2000 → 4000 | 4,02 | 2,13 | 2,18 |
 
-El factor esperado para fuerza bruta es aproximadamente 4, por lo que el 3,94 medido coincide muy bien con Θ(n²). Para divide y vencerás, el factor esperado es `(4000 log₂ 4000) / (2000 log₂ 2000)`, cerca de 2,18. El valor observado, 2,08, está próximo: pequeñas diferencias son normales por el temporizador y la carga del equipo. La forma de la gráfica respalda esa comparación.
+La fuerza bruta se aproxima repetidamente al factor 4 esperado al duplicar una entrada Θ(n²). Divide y vencerás crece alrededor de un factor 2 y queda cerca de los factores entre 2,18 y 2,22 previstos para Θ(n log n). Las diferencias pequeñas son coherentes con el ruido del temporizador, la carga del equipo y el costo fijo de las llamadas.
 
 ### 3. Tamaños pequeños
 
-En listas pequeñas las dos curvas quedan cercanas porque la recursión tiene costos fijos: crear llamadas, calcular el medio y construir sus retornos. La ventaja de divide y vencerás aparece cuando el trabajo cuadrático de fuerza bruta deja de ser pequeño frente a esos costos. El punto preciso puede variar según el computador y la versión de Python; por eso el resultado se interpreta desde los tiempos de esta ejecución y no como una constante universal.
+El primer tamaño medido en el que divide y vencerás gana es `n = 50`: fuerza bruta tarda 57,5 µs y divide y vencerás 51,4 µs. La diferencia de unos 6 µs es pequeña y el punto de cruce puede variar entre equipos. En `n = 10`, fuerza bruta todavía gana (4,0 µs frente a 9,9 µs); en `n = 100`, la ventaja recursiva ya es clara (108,6 µs frente a 217,8 µs). Estos datos muestran que la recursión tiene un costo fijo apreciable en entradas pequeñas, pero el crecimiento cuadrático termina dominando.
 
 ### 4. ¿Cuándo conviene dividir?
 
@@ -76,4 +88,4 @@ Para hallar solo el máximo de un arreglo no conviene dividir si ya existe un re
 
 ### 5. Concepto para la gerente
 
-Recomiendo divide y vencerás para las series grandes de la cooperativa. Conserva la misma respuesta que fuerza bruta, pero su crecimiento es Θ(n log n), mientras que fuerza bruta crece como Θ(n²). Para una serie de 1.000.000 de registros, la estimación parte de un punto medido, no de una regla de tres lineal. Desde el tiempo de `n = 4000`, fuerza bruta se escala por `(1.000.000 / 4000)²`: `0,3655947 × 62.500` da cerca de 22.850 s, o 6,35 horas. Divide y vencerás se escala por `(1.000.000 log₂ 1.000.000) / (4000 log₂ 4000)`; el factor es 416,43 y `0,0057898 × 416,43` estima unos 2,41 s. Son estimaciones: el hardware, la memoria y el intérprete pueden modificar el tiempo real, pero la diferencia de crecimiento explica por qué conviene la solución recursiva para cientos de miles o millones de registros.
+Recomiendo divide y vencerás para las series grandes de la cooperativa. Conserva la misma respuesta que fuerza bruta, pero su crecimiento es Θ(n log n), mientras que fuerza bruta crece como Θ(n²). Para una serie de 1.000.000 de registros, la estimación parte del punto medido en `n = 4000`, no de una regla de tres lineal. Fuerza bruta se escala por `(1.000.000 / 4000)² = 62.500`: `0,3653715 × 62.500` da cerca de 22.836 s, o 6,34 horas. Divide y vencerás se escala por `(1.000.000 log₂ 1.000.000) / (4000 log₂ 4000) = 416,43`; `0,0057797 × 416,43` estima unos 2,41 s. Son estimaciones: el hardware, la memoria y el intérprete pueden modificar el tiempo real, pero la diferencia de crecimiento explica por qué conviene la solución recursiva para cientos de miles o millones de registros.
