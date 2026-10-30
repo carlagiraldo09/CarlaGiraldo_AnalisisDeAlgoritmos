@@ -1,62 +1,53 @@
 # Retroalimentación — Laboratorio 02: Dividir y vencer
 
 **Estudiante:** Carla Giraldo Camacho · **Laboratorio:** Laboratorio evaluativo 02 — Dividir y vencer
-**Fecha límite:** 2026-10-21 23:59 · **Versión revisada:** commit `adef10f`
+**Fecha límite:** 2026-10-30 23:59 · **Versión revisada:** commit `6687e8b`
 
-Muy buen trabajo: el código es correcto y el análisis se apoya en sus propias mediciones.
+Excelente trabajo: un laboratorio completo, bien verificado y con un análisis apoyado en sus propias mediciones.
 
 ## Nota
 
 | Criterio | Puntos |
 |---|---|
-| Corrección conceptual | 14 / 20 |
-| Calidad de la explicación teórica | 18 / 20 |
+| Corrección conceptual | 20 / 20 |
+| Calidad de la explicación teórica | 20 / 20 |
 | Corrección de la implementación | 25 / 25 |
-| Calidad del análisis de las gráficas | 23 / 25 |
+| Calidad del análisis de las gráficas | 25 / 25 |
 | Documentación y organización del informe | 10 / 10 |
-| **Total** | **90 / 100** |
-| **Nota (0–5)** | **4.50** |
+| **Total** | **100 / 100** |
+| **Nota (0–5)** | **5.00** |
 
-## 1. Corrección conceptual (14 / 20)
+## 1. Corrección conceptual (20 / 20)
 **Lo que hizo bien:**
-- En la pregunta 4 compara con el máximo de un arreglo, plantea `T(n) = 2T(n/2) + Θ(1)` y concluye que dividir no mejora `Θ(n)`.
-- En la pregunta 5 recomienda divide y vencerás, declara que es una estimación y escala desde el tiempo medido en n = 4000 (no con regla de tres lineal).
+- Identifica con sus datos el tamaño desde el cual divide y vencerás empieza a ganar (n = 50) y aclara que la diferencia allí es pequeña y puede variar entre equipos.
+- Explica bien por qué buscar solo el máximo no mejora al dividir: combinar cuesta un tiempo constante, la recurrencia sigue siendo lineal y solo se añaden llamadas.
+- Recomienda un algoritmo, estima el tiempo para 1.000.000 de registros sin usar una regla de tres lineal y declara que es una estimación.
 
-**Lo que puede mejorar:**
-- En la pregunta 3 no dice a partir de qué tamaño divide y vencerás empieza a ganar. Sus propios datos lo permiten: debía señalar ese tamaño o explicar por qué no aparece. La respuesta quedó general.
-- Faltó apoyar esa respuesta con valores de los tamaños pequeños (por ejemplo, una tabla), ya que en la gráfica esos puntos no se distinguen.
-
-## 2. Calidad de la explicación teórica (18 / 20)
+## 2. Calidad de la explicación teórica (20 / 20)
 **Lo que hizo bien:**
-- Plantea `T(n) = 2T(n/2) + Θ(n)` y explica de dónde sale cada término.
-- Resuelve con el método maestro (caso 2) y justifica el `Θ(n²)` de la fuerza bruta con `n(n+1)/2` iteraciones.
-
-**Lo que puede mejorar:**
-- Al verificar la condición del caso, escriba la comparación completa: `f(n) = Θ(n^(log_b a))`, con `a`, `b` y `f(n)` explícitos.
+- Plantea la recurrencia explicando de dónde sale cada término (dos mitades y un recorrido para el caso cruzado).
+- Resuelve con el método maestro y verifica la condición del caso 2 comparando `f(n)` con `n^(log_b a)`.
+- Justifica que la fuerza bruta es `Θ(n²)` contando las iteraciones.
 
 ## 3. Corrección de la implementación (25 / 25)
 **Lo que hizo bien:**
-- Las tres funciones dan la suma correcta en todos los casos pedidos y coinciden en listas aleatorias.
+- Las tres funciones dan la suma correcta en la serie de ocho días, un elemento, todos negativos, todos positivos y un caso cruzado.
 - `subarreglo_maximo` resuelve los tres casos sin llamar a la fuerza bruta y no modifica la lista recibida.
-- Tiene type hints y docstrings en las funciones.
+- Las pruebas comparan 25 listas aleatorias entre ambas soluciones, por suma y no por índices.
+- Todas las funciones del código tienen *type hints*, *docstrings* con `Args` y `Returns`, y dos líneas en blanco entre funciones.
 
-## 4. Calidad del análisis de las gráficas (23 / 25)
+## 4. Calidad del análisis de las gráficas (25 / 25)
 **Lo que hizo bien:**
-- La gráfica tiene título, ejes rotulados, leyenda, ambas curvas en los mismos ejes y 8 tamaños.
-- Calcula el factor al duplicar n (3,94 y 2,08) y lo compara con lo esperado para `Θ(n²)` y `Θ(n log n)`. Esos valores coinciden con la gráfica publicada.
-
-**Lo que puede mejorar:**
-- Solo comparó un par de tamaños; con más pares el contraste sería más sólido.
+- La gráfica `tiempo_vs_n.png` tiene ambas curvas en los mismos ejes, título, ejes rotulados y leyenda, con ocho tamaños.
+- Lo que dice el informe coincide con la gráfica publicada: la fuerza bruta llega a cerca de 0,37 s en n = 4000 y divide y vencerás queda casi pegada al eje.
+- Calcula los factores de crecimiento al duplicar `n` en tres pares de tamaños y los contrasta con 4 para `Θ(n²)` y con los valores de `n log n`.
+- Mide con la misma lista para ambos algoritmos, semilla fija y 30 repeticiones, y comprueba dentro del experimento que las sumas coinciden.
 
 ## 5. Documentación y organización del informe (10 / 10)
 **Lo que hizo bien:**
-- Estructura de carpetas correcta, README en el orden pedido, enlaces al código, gráfica visible, instrucciones de reproducción y tres commits descriptivos.
+- La carpeta `lab2-divide-y-vencer/` tiene la estructura pedida: `README.md`, `subarreglo.py`, `pruebas.py`, `medicion.py` y `graficas/tiempo_vs_n.png`.
+- El informe sigue el orden pedido, trae su nombre e instrucciones de reproducción, enlaza el código de cada parte y la gráfica se ve con ruta relativa.
+- Tiene varios commits con mensajes descriptivos.
 
 ## ¿El código funciona?
-Sí. Las pruebas pasan, ambas soluciones dan siempre la misma suma y la medición corre y regenera la gráfica sin errores.
-
-## Para el próximo laboratorio
-- Responda cada pregunta con el dato concreto que se pide (por ejemplo, el tamaño exacto del cruce de las curvas).
-- Incluya una tabla con todos los tiempos medidos para poder analizar los tamaños pequeños.
-- Mantenga los *type hints*, los *docstrings* con `Args` y `Returns` y las dos líneas en blanco entre funciones.
-- Calcule el factor de crecimiento en más de un par de tamaños.
+Sí. Las pruebas pasan, la medición corre completa y regenera la gráfica sin errores.
